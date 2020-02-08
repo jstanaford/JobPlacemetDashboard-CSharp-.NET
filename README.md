@@ -87,10 +87,79 @@ Secondly, I simply had to call the data by name in my actual view file. Which wa
             
 
 ## Date Time Nullable display formatting issue. 
+In one of the classes called, Productions, an attribute called Showtime was not displaying the time entered properly. In one section of the website, we wrote up a view for the Productions hosted at the theatre. Productions had its own index view as well as create, delete and details capabilities. Additionally, there is a controller assigned to all of the functions taking place with the productions at work. When someone would create a new Production the website would function as designed, however, upon returning to the index page, the user would not see the time they entered for the variables of ShowtimeMat and ShowtimeEve. Instead, they would just see the desired format of hh:mm tt. So, to remedy this solution, I added code to the Model class for Productions rather than altering the view or controller. 
+
+I'm showing the methdod I used below on the Production.cs file to debug the issue:
+
+	[DataType(DataType.Time)]
+	//[DisplayFormat(DataFormatString = "hh:mm tt", ApplyFormatInEditMode = true)] 			//before
+	[DisplayFormat(DataFormatString = "{0:hh:mm tt}", ApplyFormatInEditMode = true)]		/after
+        [Display(Name = "Evening Showtime")]
+        public DateTime? ShowtimeEve { get; set; }
+        
+        [DataType(DataType.Time)]
+        //[DisplayFormat(DataFormatString = "hh:mm tt", ApplyFormatInEditMode = true)]			/before
+        [DisplayFormat(DataFormatString = "{0:hh:mm tt}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Matinee Showtime")]
+        public DateTime? ShowtimeMat { get; set; }
 
 
+In this case, I could have gone to the Production view and chosen to edit the html using some type of ".Value.ToString()?" approach, but I decided to make my model do the "heavy lifting" for the sake of keeping the views simple. Additionally, I had to ensure that each of these values could be nullable. 
+
+## Seed the Production Database
+
+At this point in the project, most of the classes were very empty of any data. The point of this assignment was for the sake of creating a lot of "dummy data" to be able to test the functionality of the Productions part of the website. Utilizing the Startup.cs file, I created a sample of dummy data involving various, popular productions. This was done by creating a list of Productions and adding them all at once. I needed to ensure I used the prpoper method as to avoid duplicating data everytime the website was launched. 
+
+First things first, I needed to add the name I assigned to my Seed method to the Configuration method in the project's startup. 
 
 
+	public void Configuration(IAppBuilder app)
+		{
+		    ConfigureAuth(app);
+		    createRolesandUsers();
+		    SeedCastMembers();
+		    SeedProductions();
+		}
 
+From there, it was just a matter of seeding the database. The context for the project had already been declared so this assignment in itself was easy as creeating the data, writing the command to update the database, and saving the changes.
+
+//Seeding database with dummy Productions
+		private void SeedProductions()
+		{
+			var productions = new List<Production>
+			{
+				new Production{Title = "Hamilton", Playwright = "Lin-Manuel Miranda", Description = "This is a musical 					inspired by the biography " +
+				"Alexander Hamilton by historian Ron Chernow. This musical tells the story of American Founding Father 					Alexander Hamilton through music " +
+				"that draws heavily from hip hop, as well as R&B, pop, soul, and traditional-style show tune. ", 					OpeningDay = new DateTime(2020, 01, 02, 19, 30, 00),
+				ClosingDay = new DateTime(2020, 01, 30, 19, 30, 00), ShowtimeEve = new DateTime(2020, 01, 02, 19, 30, 00) 				  , ShowtimeMat = new DateTime(2020, 01, 02, 22, 30, 00),
+				TicketLink = "ticketsforyou.com", Season = 1, IsCurrent = true},
+				new Production{Title = "Phantom of the Opera", Playwright = "Andrew Lloyd Webber & Charles Hart", 					Description = "Based on a French " +
+				"novel of the same name by Gaston Leroux, its central plot revolves around a beautiful soprano, Christine 				  Daae, who becomes the obesession " +
+				"of a mysterious, disfigured musical genius living in the subterranean labyrinth beneath the Paris Opera 				 House.", OpeningDay = new DateTime(2020, 01, 04, 17, 30, 00),
+				ClosingDay = new DateTime(2020, 02, 02, 17, 30, 00), ShowtimeEve = new DateTime(2020, 01, 04, 17, 30, 00), 				   ShowtimeMat = new DateTime(2020, 01, 04, 19, 30, 00),
+				TicketLink = "ticketsforyou.com", Season = 1, IsCurrent = true},
+				new Production{Title = "The Book of Mormon", Playwright = "Trey Parker, Robert, Lopez, & Matt Stone", 					Description = "The Book of Mormon " +
+				"follows two Latter-Day Saints missionaries as they attempt to preach the faith of the Church of Jesus 					Christ of Latter-Day Saints to the " +
+				"inhabitants of a remote Ugandan village.", OpeningDay = new DateTime(2020, 04, 02, 19, 30, 00), 					ClosingDay = new DateTime(2020, 04, 27, 19, 30, 00),
+				ShowtimeEve = new DateTime(2020, 04, 02, 19, 30, 00), ShowtimeMat = new DateTime(2020, 04, 02, 22, 30, 					00), TicketLink = "ticketsforyou.com", Season = 2,
+				IsCurrent = true},
+				new Production{Title = "Wicked", Playwright = "Stephen Schwartz", Description = "This musical is told from 				   the perspective of the witches of " +
+				"the Land of Oz; its plot begins before and continues after Dorothy Gale arrives in Oz from Kansas, and 				includes several references to the 1939 film.",
+				OpeningDay = new DateTime(2019, 10, 01, 19, 30, 00), ClosingDay = new DateTime(2019, 10, 25, 19, 30, 00), 				  ShowtimeEve = new DateTime(2019, 10, 01, 19, 30, 00),
+				ShowtimeMat = new DateTime(2019, 10, 01, 23, 30, 00), TicketLink = "ticketsforyou.com", Season = 4, 					IsCurrent = false},
+				new Production{Title = "How to Succeed in Business Without Really Trying", Playwright = "Frank Loesser", 				  Description = "This story concerns young, " +
+				"ambitious J. Pierrepont Finch, who, with the help of the book How to Succeed in Business Without Really 				  Trying, rises from window washer to chairman of " +
+				"the board of the World Wide Wicket Company.", OpeningDay = new DateTime(2019, 12, 01, 19, 30, 00), 					ClosingDay = new DateTime(2019, 12, 22, 19, 30, 00),
+				ShowtimeEve = new DateTime(2019, 12, 01, 19, 30, 00), ShowtimeMat = new DateTime(2019, 12, 01, 23, 30, 					00), TicketLink = "ticketsforyou.com", Season = 4,
+				IsCurrent = false},
+			};
+			productions.ForEach(Production => context.Productions.AddOrUpdate(d => d.Title, Production));
+			context.SaveChanges();
+		}
+
+
+I know this code above isn't the easiest to look at; but due to its repetitive nature, one only needs to see one or two of the lines to understand what is happening, just with different data
+
+## Other Skills Learned
 
 
