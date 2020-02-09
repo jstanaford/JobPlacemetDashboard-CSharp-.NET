@@ -1,5 +1,5 @@
 # JobPlacemetDashboard-CSharp-.NET
-My contributions to a ASP .NET MVC and Entity Framework project during an internship with Prosper IT Consulting.
+This is a summary of my contributions to a ASP .NET MVC and Entity Framework project during an internship with Prosper IT Consulting.
 
 
 ## Introduction 
