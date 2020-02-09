@@ -164,7 +164,7 @@ I know this code above isn't the easiest to look at (for some reason I can't get
 * Worked with a team of developers to identify front end and backend end improvements for the theatre's public and admin portions of the website.
 * Created an environment for clear communication between team members while checking out files for the project. 
 * Learned from one on one guidance from the scum master & benefited from group programming/discussion.
-
+* Problem solved by asking questions to completely understand expectations of assigned stories/work. 
 
 
 
