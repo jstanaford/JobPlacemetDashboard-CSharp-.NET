@@ -3,16 +3,16 @@ This is a summary of my contributions to a ASP .NET MVC and Entity Framework pro
 
 
 ## Introduction 
-This project is the interactive website for managing the content and productions for a theatre/acting company. It is designed to function as a content management service for users who are not technically saavy and want to manage the display on their website. It also includes a login capability for subscribers and maintains a wiki of past performances and peformers. To summarize, the project is intended to have: an Admin Area, Visitor Area, Subscriber area, Calendar, Company Wiki, and specific styling.  
+This project is an interactive website for managing the content and productions for a theatre & acting company. It is designed to function as a content management service for users who are not technically saavy and want to manage the display on their website. It also includes a login capability for subscribers and maintains a wiki of past performances and peformers. To summarize, the project is intended to have: an Admin Area, Visitor Area, Subscriber area, Calendar, Company Wiki, and specific styling for a theatre. 
 
-I have worked on various front end and back end stories, with various levels of difficulty. This project utilzed the Agile/Scrum methodology of development. Stories and Version controlled was accomplished through Azure DevOps. General questions and team communication was carried out through Google hangout and Slack. During this project, I learned what it means to achieve clean version control, working with branches, and merging. 
+I have worked on various front end and back end stories, each with various levels of difficulty. This project utilzed the Agile/Scrum methodology of development. Stories and Version controlled were accomplished through Azure DevOps. General questions and team communication was carried out through Google hangout and Slack. During this project, I learned what it means to achieve clean version control, working with branches, and merging. 
 
-Below I have a description of each Assignment/story I completed, along with code snippets attached to this README.
+Below I have a description of each Assignment/story I completed, along with code snippets attached to showcase solutions I developed.
 
 
 ## Register Form
 
-This story was mostly centered around debugging and styling. On one of our views, a page contained a form but the text was all white; so, none of it was visible. Additionally, the styling was not very pleasant and many elements were not in alignment. 
+This story was mostly centered around debugging and styling. One of the views had a whitebackground with white text; so, none of the text was visible. Additionally, the styling was not very pleasant and many elements were not in alignment. 
 
 To remedy this I:
 * fixed the text color to be visible
@@ -43,7 +43,7 @@ Below is the CSS code I wrote to accomplish these goals in my HTML classes:
 /*End style for register form page*/
 
 
-I won't show the HTML itself because of its length for this particular view; but, I more or less just utilized these classes in various div elements on an HTML form that also utilized some bootstrap. 
+I won't show the HTML itself because of its length for this particular view; but, I more or less just utilized these classes in various "div" elements on an HTML form. I also used bootstrap to supply many of the style elements seen on that particular view. 
 
 
 ## JSON Admin Settings 
@@ -52,7 +52,7 @@ The purpose of this story was to create a JSON Object and add it to the project 
 
 So I created the JSON file with the JavaScript Dictionary for the admin with some dummy data assigned to it. This task was simple in and of itself, but it laid the groundwork for providing a file for future JSON/AJAX functions in the future. 
 
-Below is a code snippet of the JSON file I created with very litle information to begin with. 
+Below is a code snippet of the JSON file & JavaScript dictionary I created with some example data. 
 
 
         {
@@ -71,14 +71,14 @@ Below is a code snippet of the JSON file I created with very litle information t
 
 
 ## Set Default Value for drop downs
-In this project there was a view in correlated to particular Parts in a production. In the edit view for this, the dropdowns for the Cast Member an Production of a Part object would not initilize with the current value stored in the database. I was asked to set them to the current value so they would only be edited if needed. 
+In this project, we created a page dedicated to Parts in a production. In the "edit view" for this, the dropdowns for the "Cast Member" and "Production" of a Part object would not initilize with the current value stored in the database. I was asked to set them to the current value in the database so they would only be edited if needed. 
 
 This solution came in two parts:
-Firstly, I provided ViewData in a Get class in the controller for gathering the Edit View. This is a codesnipped of what that looked like below: 
+Firstly, I provided ViewData in a "Get" class, which was found in the controller for gathering the Part Edit View. This is a codesnippet of what that looked like: 
 
       ViewData["Productions"] = new SelectList(db.Productions, "ProductionId", "Title", part.Production.ProductionId);
 			
-			ViewData["CastMembers"] = new SelectList(db.CastMembers, "CastMemberId", "Name", part.Person.CastMemberID);
+      ViewData["CastMembers"] = new SelectList(db.CastMembers, "CastMemberId", "Name", part.Person.CastMemberID);
 
 Secondly, I simply had to call the data by name in my actual view file. Which was as simple as these lines of code below: 
 
@@ -87,19 +87,19 @@ Secondly, I simply had to call the data by name in my actual view file. Which wa
             
 
 ## Date Time Nullable display formatting issue. 
-In one of the classes called, Productions, an attribute called Showtime was not displaying the time entered properly. In one section of the website, we wrote up a view for the Productions hosted at the theatre. Productions had its own index view as well as create, delete and details capabilities. Additionally, there is a controller assigned to all of the functions taking place with the productions at work. When someone would create a new Production the website would function as designed, however, upon returning to the index page, the user would not see the time they entered for the variables of ShowtimeMat and ShowtimeEve. Instead, they would just see the desired format of hh:mm tt. So, to remedy this solution, I added code to the Model class for Productions rather than altering the view or controller. 
+In one of the classes called, Productions, an attribute called Showtime was not displaying the time entered properly. In one section of the website, we wrote up a view for the Productions hosted at the theatre. Productions had its own index view as well as create, delete and details capabilities. Additionally, there is a controller assigned to all of the functions taking place with the productions at work. When someone would create a new Production the website would function as designed; however, upon returning to the index page, the user would not see the time they entered for the variables of ShowtimeMat and ShowtimeEve. Instead, they would just see the desired format of hh:mm tt. So, to remedy this solution, I added code to the Model class for Productions rather than altering the view or controller. 
 
-I'm showing the methdod I used below on the Production.cs file to debug the issue:
+This is the methdod I used below on the Production.cs file to debug the issue:
 
 	[DataType(DataType.Time)]
 	//[DisplayFormat(DataFormatString = "hh:mm tt", ApplyFormatInEditMode = true)] 			//before
-	[DisplayFormat(DataFormatString = "{0:hh:mm tt}", ApplyFormatInEditMode = true)]		/after
+	[DisplayFormat(DataFormatString = "{0:hh:mm tt}", ApplyFormatInEditMode = true)]		//after
         [Display(Name = "Evening Showtime")]
         public DateTime? ShowtimeEve { get; set; }
         
         [DataType(DataType.Time)]
-        //[DisplayFormat(DataFormatString = "hh:mm tt", ApplyFormatInEditMode = true)]			/before
-        [DisplayFormat(DataFormatString = "{0:hh:mm tt}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "hh:mm tt", ApplyFormatInEditMode = true)]			//before
+        [DisplayFormat(DataFormatString = "{0:hh:mm tt}", ApplyFormatInEditMode = true)]		//after
         [Display(Name = "Matinee Showtime")]
         public DateTime? ShowtimeMat { get; set; }
 
@@ -162,7 +162,7 @@ From there, it was just a matter of seeding the database. The context for the pr
 
 
 
-I know this code above isn't the easiest to look at; but due to its repetitive nature, one only needs to see one or two of the lines to understand what is happening, just with different data
+I know this code above isn't the easiest to look at; but due to its repetitive nature, one only needs to see one or two of the lines to understand what is happening. The same process of simply creating a list is showcased, just with different data each of the five time. 
 
 ## Other Skills Learned
 * Worked with a team of developers to identify front end and backend end improvements for the theatre's public and admin portions of the website.
