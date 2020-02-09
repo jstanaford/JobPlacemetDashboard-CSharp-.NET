@@ -162,7 +162,7 @@ From there, it was just a matter of seeding the database. The context for the pr
 
 
 
-I know this code above isn't the easiest to look at (for some reason I can't get it to look nice outside of editing mode); but due to its repetitive nature, one only needs to see one or two of the lines to understand what is happening, just with different data
+I know this code above isn't the easiest to look at; but due to its repetitive nature, one only needs to see one or two of the lines to understand what is happening, just with different data
 
 ## Other Skills Learned
 * Worked with a team of developers to identify front end and backend end improvements for the theatre's public and admin portions of the website.
