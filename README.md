@@ -123,7 +123,9 @@ First things first, I needed to add the name I assigned to my Seed method to the
 
 From there, it was just a matter of seeding the database. The context for the project had already been declared so this assignment in itself was easy as creeating the data, writing the command to update the database, and saving the changes.
 
-//Seeding database with dummy Productions
+
+
+		//Seeding database with dummy Productions
 		private void SeedProductions()
 		{
 			var productions = new List<Production>
@@ -156,6 +158,8 @@ From there, it was just a matter of seeding the database. The context for the pr
 			productions.ForEach(Production => context.Productions.AddOrUpdate(d => d.Title, Production));
 			context.SaveChanges();
 		}
+
+
 
 
 I know this code above isn't the easiest to look at (for some reason I can't get it to look nice outside of editing mode); but due to its repetitive nature, one only needs to see one or two of the lines to understand what is happening, just with different data
